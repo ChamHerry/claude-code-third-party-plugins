@@ -306,7 +306,7 @@ _即将推出..._
 
 - **Issues**: [提交问题](https://github.com/ChamHerry/claude-code-third-party-plugins/issues)
 - **Discussions**: [参与讨论](https://github.com/ChamHerry/claude-code-third-party-plugins/discussions)
-- **Email**: wangxuecheng@example.com
+- **Email**: ahut17353766123@gmail.com
 
 ---
 

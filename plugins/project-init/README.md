@@ -4,15 +4,16 @@
 
 ## 功能介绍
 
-基于 `CLAUDE_TEMPLATE.md` 模板，通过交互式问答自动生成定制化的项目开发规范文件。
+基于**内置模板**，通过交互式问答自动生成定制化的项目开发规范文件。
 
 ### 核心特性
 
+- ✅ **内置模板**：模板已嵌入命令中，无需外部文件
 - ✅ **交互式配置**：通过问答引导收集项目信息
 - ✅ **智能填充**：自动替换模板占位符
 - ✅ **安全可靠**：覆盖前自动备份现有文件
 - ✅ **灵活定制**：支持多种技术栈和架构模式
-- ✅ **开箱即用**：无需额外依赖
+- ✅ **跨平台支持**：完全兼容 Windows / macOS / Linux
 
 ## 安装方法
 
@@ -39,15 +40,14 @@ git clone <plugin-repository-url> project-init
 
 ### 快速开始
 
-1. 确保项目中存在 `CLAUDE_TEMPLATE.md` 模板文件
-2. 在 Claude Code 中执行命令：
+1. 在 Claude Code 中执行命令：
 
 ```bash
 /project-init
 ```
 
-3. 按照提示回答问题
-4. 自动生成 `CLAUDE.md` 文件
+2. 按照提示回答问题
+3. 自动生成 `CLAUDE.md` 文件
 
 ### 执行流程
 
@@ -56,7 +56,7 @@ git clone <plugin-repository-url> project-init
   ↓
 检查现有 CLAUDE.md（如有则询问是否覆盖）
   ↓
-读取 CLAUDE_TEMPLATE.md 模板
+使用内置模板
   ↓
 收集项目信息（4轮交互式问答）
   ├─ 项目核心信息（名称、描述）
@@ -95,9 +95,6 @@ git clone <plugin-repository-url> project-init
 ```bash
 # 在新项目目录下
 cd /path/to/new-project
-
-# 确保有模板文件
-ls CLAUDE_TEMPLATE.md
 
 # 执行初始化
 /project-init
@@ -178,15 +175,12 @@ A: 需要（使用 AskUserQuestion）
 
 ### allowed-tools
 
-命令执行时使用以下工具：
+命令执行时使用以下跨平台工具：
 
-- `Read`: 读取模板文件
+- `Read`: 读取现有 CLAUDE.md（用于备份）
 - `Write`: 生成 CLAUDE.md 文件
 - `AskUserQuestion`: 交互式收集用户输入
-- `Bash(ls:*)`: 检查文件是否存在
-- `Bash(test:*)`: 文件存在性检测
-- `Bash(cp:*)`: 备份现有文件
-- `Bash(date:*)`: 获取时间戳
+- `Bash(date:*)`: 获取时间戳（所有系统都支持）
 
 ## 目录结构
 
@@ -195,46 +189,32 @@ project-init/
 ├── .claude-plugin/
 │   └── plugin.json          # Plugin 元数据配置
 ├── commands/
-│   └── project-init.md      # 命令实现逻辑
-├── docs/
-│   └── todo/
-│       └── 2025-11-03-14-07-project-init-plugin-方案.md
+│   └── project-init.md      # 命令实现逻辑（含内置模板）
 └── README.md                # 本文档
 ```
 
 ## 依赖要求
 
 - Claude Code CLI（最新版本）
-- CLAUDE_TEMPLATE.md 模板文件（需放在项目根目录）
+- 无需其他依赖，模板已内置
 
 ## 常见问题
 
-### Q1: 找不到 CLAUDE_TEMPLATE.md 怎么办？
-
-**A:** 确保模板文件存在于以下位置之一：
-- 项目根目录
-- ~/.claude/CLAUDE_TEMPLATE.md
-
-或者从本项目复制模板：
-```bash
-cp CLAUDE_TEMPLATE.md /path/to/your/project/
-```
-
-### Q2: 生成的 CLAUDE.md 可以手动修改吗？
+### Q1: 生成的 CLAUDE.md 可以手动修改吗？
 
 **A:** 完全可以！生成的文件只是起点，您应该根据项目实际情况调整细节。
 
-### Q3: 如何恢复备份的文件？
+### Q2: 如何恢复备份的文件？
 
 **A:** 如果选择了"备份后覆盖"，原文件会保存为：
 ```bash
-CLAUDE.md.backup.{timestamp}
+CLAUDE.md.backup-{timestamp}
 
 # 恢复方法
-cp CLAUDE.md.backup.20251103143000 CLAUDE.md
+cp CLAUDE.md.backup-20251103143000 CLAUDE.md
 ```
 
-### Q4: 支持哪些编程语言？
+### Q3: 支持哪些编程语言？
 
 **A:** 目前内置支持：
 - Go
@@ -244,19 +224,19 @@ cp CLAUDE.md.backup.20251103143000 CLAUDE.md
 
 其他语言可以通过"Other"选项自定义输入。
 
-### Q5: 可以跳过某些问题吗？
+### Q4: 可以跳过某些问题吗？
 
 **A:** 可以！所有非必填字段都可以使用默认值或留空。
 
+### Q5: 支持哪些操作系统？
+
+**A:** 完全跨平台支持：
+- ✅ Windows (CMD / PowerShell)
+- ✅ macOS
+- ✅ Linux
+- ✅ WSL
+
 ## 高级用法
-
-### 自定义模板
-
-您可以修改 `CLAUDE_TEMPLATE.md` 来定制模板内容：
-
-1. 添加新的占位符（使用 `[占位符名称]` 格式）
-2. 在 `commands/project-init.md` 中添加对应的问题
-3. 在字符串替换逻辑中添加映射关系
 
 ### 批量初始化
 
@@ -283,10 +263,10 @@ cp CLAUDE.md.backup.20251103143000 CLAUDE.md
 测试以下场景：
 - ✅ 新项目初始化
 - ✅ 覆盖现有文件
-- ✅ 模板文件不存在
 - ✅ 权限不足
 - ✅ 用户取消操作
 - ✅ 不同技术栈组合
+- ✅ 跨平台兼容性（Windows/Mac/Linux）
 
 ## 版本历史
 

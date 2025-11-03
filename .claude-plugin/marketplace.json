@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "description": "Claude Code 插件市场，包含项目初始化、开发辅助等实用工具",
   "owner": {
-    "name": "Claude Code Community",
-    "email": "wangxuecheng@example.com"
+    "name": "Wang Xuecheng",
+    "email": "ahut17353766123@gmail.com"
   },
   "plugins": [
     {
@@ -14,7 +14,7 @@
       "version": "1.0.0",
       "author": {
         "name": "Wang Xuecheng",
-        "email": "wangxuecheng@example.com"
+        "email": "ahut17353766123@gmail.com"
       },
       "source": "./plugins/project-init",
       "category": "productivity"
