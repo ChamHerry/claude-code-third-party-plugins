@@ -45,3 +45,6 @@ out/
 # Claude Code specific
 .claude/cache/
 .claude/temp/
+
+# Documentation (local only)
+docs/
